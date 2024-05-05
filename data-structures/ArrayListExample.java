@@ -8,7 +8,7 @@ public class ArrayListExample {
         ArrayList<String> fruits = new ArrayList<>();
         fruits.add("apple");
         fruits.add("pear");
-        fruits.add("cantaloupe");
+        fruits.add(1, "cantaloupe");
         System.out.println(fruits);
 
         String fruit = fruits.get(1);
@@ -37,8 +37,19 @@ public class ArrayListExample {
         nums.add(61);
         nums.add(22);
         nums.add(72);
-
-        nums.sort(Integer::compareTo);
+        nums.add(8);
         System.out.println(nums);
+
+        // copy of List
+        List<Integer> list = new ArrayList<>(nums);
+
+        list.sort(Integer::compareTo);
+        System.out.println("nums: " + nums);
+        System.out.println("list: " + list);
+
+        nums.remove(new Integer(61));
+        System.out.println(nums);
+
+        System.out.println(nums.subList(1, 4));
     }
 }
