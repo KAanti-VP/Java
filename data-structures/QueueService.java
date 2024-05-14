@@ -45,7 +45,7 @@ public class QueueService {
      * @param number - client number
      */
     public static void addCustomer(LinkedList<Integer> queue, Integer number) {
-        queue.addLast(number);
+        
     }
 
     /**
@@ -55,19 +55,7 @@ public class QueueService {
      * @return - client number
      */
     public static Integer nextCustomer(LinkedList<Integer> queue) {
-        Integer number = 0;
-        for (Integer currentNumber: queue) {
-            if (currentNumber >= 700 && currentNumber< 800) {
-                number = currentNumber;
-                break;
-            }
-        }
-        if (number == 0) {
-            try {
-                number = queue.getFirst();
-            } catch (Exception ignored) {}
-        }
-        return number;
+        
     }
 
     /**
@@ -76,6 +64,6 @@ public class QueueService {
      * @param number - client number
      */
     public static void removeCustomer(LinkedList<Integer> queue, Integer number) {
-        queue.remove(number);
+        
     }
 }
