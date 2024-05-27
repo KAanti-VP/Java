@@ -112,7 +112,7 @@ public class DataStructuresDolgozat {
 
 
     /**
-     * A coutries főváros ország adatpárok közül törli a capital főváros ország adatpárt, ha szerepel benne.
+     * torolAdatPart() - A coutries főváros ország adatpárok közül törli a capital főváros ország adatpárt, ha szerepel benne.
      * Ha nem szerepel benne, akkor "Nincs " + capital + " főváros az adatok között" hibát dob.
      * @param coutries a főváros ország adatpárok
      * @param capital a főváros neve
