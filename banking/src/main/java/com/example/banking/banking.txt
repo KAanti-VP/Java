@@ -1,0 +1,107 @@
+# Banking
+
+It is high time to create a bank application that works in our interest!
+
+## Customer
+
+There is a **Customer**  (sometimes called user) class that represent a
+customers of a bank
+
+A customer has:
+
+- `name`,
+- `age`,
+- `gender`
+- and can have multiple `bankAccount`s
+
+All of these must be set at creation.
+
+A customer can create a new account (`createAccount(account)`) that:
+
+- Adds a new account (received as parameter) to its `bankAccount` list.
+- There cannot be multiple bank accounts for the same **Customer** with
+the same **name**.
+- In case of duplicated account name, do not add the account but print:
+`"No account name duplication is allowed"`
+
+A user can send money to another user using the `sendMoney()` method.
+
+- The method shall have the following parameters:
+  - the `senderAccountName` of his/her own (sender) account
+  - the `partner` (**Customer**)
+  - the `partnerAccountName` of the partner's account
+  - the `amount` of money to be sent (integer number)
+
+- It shall implement the following logic:
+  - If there is no account under the given name (sender's account) it shall
+  throw an InvalidParameterException/Error with the message: `"There is no sender account under the name {senderAccountName}"`
+  - Reduce the sender's balance with the given amount
+  - Set the last usage date of his/her balance to the actual day
+  - Add to his/her balance's history the following text: `"2000 Ft sent to Thomas Anderson from the account [Favorite] at 2022.04.20"`
+  - If the partner is not present on the transaction partner list of the
+   account, add it
+  - Call the partner's **receiveMoney()** method
+  - Handle relevant transaction fees
+
+The customer has a `receiveMoney()` method
+
+- that has the following parameters:
+  - the `receiverAccountName` of the receiver account,
+  - the `sender` (**Customer**),
+  - the `amount` of the money received
+- It shall implement the following logic:
+  - If there is no account under the given name (receiver's account) it shall
+  throw an InvalidParameterException/Error with the message: `"There is no receiver account under the name [Favorite]"`
+  - Increase the receiver's balance with the given amount
+  - Set the last usage date of his/her balance to the actual day
+  - Add the following text to his/her balance's history:
+  `"2000 Ft received from Agent Smith to the account {receiverAccountName} at 2022.04.20"`
+
+  - If the sender is not present on the transaction partner list of the account,
+  add it
+  - Handle relevant transaction fees
+
+The user shall also have a `generateStatus()` method.
+
+- It shall print all the accounts' string representations to the console
+
+## BankAccount
+
+Every bank account must have
+
+- a `name` (string),
+- an `owner` (Customer),
+- a `balance` (double/number),
+- a `history` (list of strings),
+- a `list of transaction partners` (Customers)
+- and a `last usage date` (LocalDate)
+
+Bank accounts can be created by giving the `name`, `owner` and the
+`starting balance`
+
+A BankAccount can be a `Savings` account:
+
+- Every sending transaction costs 100 Ft
+- Every receiving transaction costs 20 Ft
+
+A BankAccount can be a `SpeedUp` account:
+
+- Every sending transaction costs 1000 Ft
+- Every receiving transaction costs 200 Ft
+- Customer gets 5000 Ft bonus for sending money to a new partner
+
+A BankAccount can be a `Balance` account:
+
+- Every sending transaction costs 0.2% of the money sent
+- Every receiving transaction costs 0.3% of the money (on weekends)
+- Every receiving transaction costs 0.1% of the money (on weekdays)
+
+Every bank account has a string representation:
+
+```txt
+Family account:
+  Account type: "Balance"
+  The number of transaction partners: 16
+  Last account usage happened 2 days ago
+  The actual balance is: 1250.3 Ft
+```
