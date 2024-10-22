@@ -1,0 +1,114 @@
+# Food Shop
+
+We're going to create a shop with lots of amazing goods.
+
+## ShopItem
+
+- Each `ShopItem` has a `name`, a `price`, a `preservativePercentage` and
+  a `daysInTheShop` property which tells how many days the item has spent
+  on the shelf of the shop.
+- A `ShopItem` can be created with its `name`, `price` and optionally the
+  `preservativePercentage`. The `daysInTheShop` property is 0 by default,
+  if it's not specified.
+- It has a `calculateFreshness()` that calculates and returns the freshness
+of the item. The implementation of this method depends on the type of the
+shop item.
+- It has a `reducePrice()` method that reduces the price of the item based on
+its freshness. The price cannot be less than 0. The specific implementation of
+this method depends on the type of the shop item. The method prints the
+information on how much the price is reduced:
+
+```txt
+Old price: {price}
+Reduced price (-50%): {price}
+```
+
+```txt
+Old price: {price}
+The price has not been reduced yet!
+```
+
+- It has a `convertFreshnessToString()` method that returns
+  - "bad" if the freshness of the item is 0,
+  - "ok" if the freshness is 1 and
+  - "good" if it's 2.
+
+  In case of other, unexpected values, throw a meaningful Exception/Error with
+  a descriptive message.
+- It has an `incrementDaysInTheShop()` that can be called at the end of a day.
+It increments the `daysInTheShop` propery of the shop item.
+- There are two types of shop items: `Dairy` and `Vegetable`.
+
+### Dairy
+
+- The `preservativePercentage` of each diary product must be set at creation.
+- The `calculateFreshness()` method calculates the freshness of the dairy.
+  If it spent
+  - more than 5 days in the shop it returns 0,
+  - more than 3 but less or equal to 5 days it returns 1
+  - and returns 2 otherwise.
+- The `reducePrice()` method reduces the price of the dairy based on its
+  freshness. If the freshness is
+  - 0, the price is reduced by 50%
+  - 1, the price is reduced by 30%
+
+### Vegetable
+
+- The `preservativePercentage` of every vegetable is 0.
+- The `calculateFreshness()` method calculates the freshness of the vegetable.
+  If it had spent
+  - more than 3 days in the shop it returns 0,
+  - more than 1 but less or equal to 3 days it returns 1
+  - and returns 2 otherwise.
+- The `reducePrice()` method reduces the price of the vegetable based on its
+  freshness. If the freshness is
+  - 0, the price is reduced by 40%
+  - 1, the price is reduced by 20%
+
+## Shop
+
+- It has a `stock` property which is a list of `ShopItem`s.
+- It can be created empty or with a list of `ShopItem`s.
+- It has a `fillStock()` method that gets a `ShopItem` as a parameter and adds
+it to the stock.
+- It has a `showStock()` method that returns a list of the information of all
+of the items in the shop. Example:
+
+```txt
+[
+    '1. item: tomato, 780 Ft, good freshness',
+    '2. item: milk, 360 Ft, ok freshness'
+]
+```
+
+- It has a `getStockValue()` method that returns the sum of the price of items
+  in the shop.
+- It has a `sellItems()` method that receives two parameters: a `price`
+  (representing the amount of money of the whole purchase) and a boolean
+  called `superHealthy` (representing whether super healthy items are sold)
+  - When the boolean is true, the method shall sell items that:
+    - has freshness 2 and
+    - `preservativePercentage` below 2%
+  - When the boolean is false, all items can be sold.
+
+  Selling an item means removing it from the `stock`. As many items can
+  be sold as many can be paid from the specified price. Selling the items
+  shall be started from the beginning of the `stock`.
+  Nothing shall happen when
+  - the amount is not enough for any relevant item, or
+  - the `stock` is empty, or
+  - no relevant (super helathy) item found.
+- It has `closeShop()` method that simulates an evening in the shop. Before
+closing, it checks every item in the shop, increments the days spent in the
+shop, and reduces the price of each item. The method prints information of
+each item in the following format:
+
+```txt
+Checking and reducing every price...
+--- tomato ---:
+Old price: 780
+The price is not reduced yet!
+--- milk ---:
+Old price: 360
+Reduces price (-30%): 252
+```
